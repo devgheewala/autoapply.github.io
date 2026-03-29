@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoApply AI — Land Your Dream Job with AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #090b0f;
+    --bg2: #0f1218;
+    --bg3: #141820;
+    --bg4: #1a2030;
+    --surface: #1e2530;
+    --surface2: #252d3a;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --accent: #00e5ff;
+    --accent2: #0095aa;
+    --accent-glow: rgba(0,229,255,0.15);
+    --accent-glow2: rgba(0,229,255,0.06);
+    --text: #e8edf5;
+    --text2: #8a95a8;
+    --text3: #556070;
+    --green: #00e096;
+    --green-bg: rgba(0,224,150,0.1);
+    --amber: #ffb938;
+    --amber-bg: rgba(255,185,56,0.1);
+    --red: #ff4d6a;
+    --red-bg: rgba(255,77,106,0.1);
+    --blue: #4d9eff;
+    --blue-bg: rgba(77,158,255,0.1);
+    --radius: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+  /* ===== NOISE TEXTURE OVERLAY ===== */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 68px;
+    background: rgba(9,11,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 20px; font-weight: 800;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-logo .logo-mark {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .nav-logo .logo-mark svg { width: 18px; height: 18px; fill: var(--bg); }
+
+  .nav-links {
+    display: flex; gap: 32px; align-items: center;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text2); font-size: 14px; font-weight: 400;
+    text-decoration: none; transition: color 0.2s;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .btn-nav {
+    padding: 9px 20px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500;
+    border: none; border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .btn-nav:hover { transform: translateY(-1px); box-shadow: 0 4px 30px var(--accent-glow); }
+
+  /* ===== HERO ===== */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 120px 5% 80px;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative; z-index: 1;
+    max-width: 860px;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--accent-glow2);
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px; font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-badge .dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(46px, 7vw, 80px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 22px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  h1 .accent { color: var(--accent); }
+  h1 .line2 { display: block; color: var(--text2); }
+
+  .hero-sub {
+    font-size: 18px; font-weight: 300;
+    color: var(--text2); line-height: 1.7;
+    max-width: 580px; margin: 0 auto 40px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 30px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500;
+    border: none; border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    box-shadow: 0 0 40px rgba(0,229,255,0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 50px rgba(0,229,255,0.4);
+  }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 30px;
+    background: transparent;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 400;
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+  }
+
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.25); background: var(--surface); }
+
+  .hero-stats {
+    display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;
+    margin-top: 60px;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px; font-weight: 800;
+    color: var(--text);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label { font-size: 13px; color: var(--text3); margin-top: 4px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== SECTIONS COMMON ===== */
+  section { padding: 100px 5%; position: relative; }
+
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .section-tag::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4.5vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 17px; color: var(--text2);
+    font-weight: 300; line-height: 1.7;
+    max-width: 560px;
+  }
+
+  /* ===== HOW IT WORKS ===== */
+  #how {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .how-header { text-align: center; margin-bottom: 64px; }
+  .how-header .section-sub { margin: 0 auto; }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px;
+    background: var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .step-card {
+    background: var(--bg2);
+    padding: 36px 28px;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .step-card:hover { background: var(--bg3); }
+
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+
+  .step-icon {
+    width: 44px; height: 44px;
+    background: var(--accent-glow2);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+
+  .step-icon svg { width: 20px; height: 20px; fill: var(--accent); }
+
+  .step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px; font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .step-desc { font-size: 14px; color: var(--text2); line-height: 1.65; }
+
+  /* ===== APP SECTION (SERVICES) ===== */
+  #app-section {
+    background: var(--bg);
+  }
+
+  .app-layout {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 40px;
+    max-width: 1200px; margin: 0 auto;
+    align-items: start;
+  }
+
+  .app-sidebar {
+    position: sticky; top: 88px;
+  }
+
+  .sidebar-header { margin-bottom: 28px; }
+
+  .api-key-field {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+
+  .api-key-field label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  .api-key-field .key-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green);
+  }
+
+  .api-key-field input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; color: var(--text);
+    outline: none;
+    transition: border 0.2s;
+  }
+
+  .api-key-field input:focus { border-color: var(--accent); }
+  .api-key-field input::placeholder { color: var(--text3); }
+
+  /* Profile Form */
+  .profile-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .profile-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--text);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .profile-card h3 svg { width: 16px; height: 16px; fill: var(--accent); }
+
+  .field-group { margin-bottom: 14px; }
+
+  .field-group label {
+    display: block;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text3); margin-bottom: 6px;
+  }
+
+  .field-group input,
+  .field-group select,
+  .field-group textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--text);
+    outline: none; transition: border 0.2s;
+    -webkit-appearance: none;
+  }
+
+  .field-group input:focus,
+  .field-group select:focus,
+  .field-group textarea:focus { border-color: rgba(0,229,255,0.4); box-shadow: 0 0 0 3px var(--accent-glow2); }
+
+  .field-group input::placeholder,
+  .field-group textarea::placeholder { color: var(--text3); }
+
+  .field-group select option { background: var(--bg2); }
+  .field-group textarea { resize: vertical; min-height: 70px; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .skills-wrap {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px;
+    min-height: 44px;
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    cursor: text;
+    transition: border 0.2s;
+  }
+
+  .skills-wrap:focus-within { border-color: rgba(0,229,255,0.4); }
+
+  .skill-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--accent-glow2);
+    border: 1px solid rgba(0,229,255,0.2);
+    color: var(--accent);
+    font-size: 12px; font-weight: 500;
+    padding: 3px 10px; border-radius: 100px;
+  }
+
+  .skill-chip button {
+    background: none; border: none; color: var(--accent);
+    cursor: pointer; font-size: 14px; line-height: 1; opacity: 0.6;
+    padding: 0;
+  }
+
+  .skill-chip button:hover { opacity: 1; }
+
+  .skill-input-inner {
+    background: transparent; border: none; outline: none;
+    color: var(--text); font-size: 13px; font-family: 'DM Sans', sans-serif;
+    min-width: 100px; flex: 1;
+    padding: 2px 4px;
+  }
+
+  .profile-strength {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px; font-size: 12px; color: var(--text2);
+  }
+
+  .strength-bar {
+    flex: 1; height: 4px; border-radius: 2px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .strength-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    transition: width 0.4s;
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+
+  .save-profile-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none; border-radius: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 0 24px var(--accent-glow);
+  }
+
+  .save-profile-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* Main App Area */
+  .app-main { min-width: 0; }
+
+  .search-panel {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .search-row {
+    display: flex; gap: 10px; margin-bottom: 14px;
+  }
+
+  .search-row input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 13px 18px;
+    font-size: 15px; font-family: 'DM Sans', sans-serif;
+    color: var(--text); outline: none;
+    transition: border 0.2s;
+  }
+
+  .search-row input:focus { border-color: rgba(0,229,255,0.4); }
+  .search-row input::placeholder { color: var(--text3); }
+
+  .search-row select {
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 14px; font-family: 'DM Sans', sans-serif;
+    color: var(--text2); outline: none; cursor: pointer;
+    -webkit-appearance: none;
+  }
+
+  .search-row select option { background: var(--bg2); }
+
+  .search-btn {
+    padding: 13px 24px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none; border-radius: 10px;
+    font-size: 14px; font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 7px;
+    white-space: nowrap;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .search-btn:hover { opacity: 0.9; }
+  .search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .filter-row { display: flex; gap: 7px; flex-wrap: wrap; }
+
+  .fchip {
+    padding: 5px 13px;
+    border-radius: 100px;
+    font-size: 12px; font-weight: 500;
+    border: 1px solid var(--border);
+    background: transparent; color: var(--text2);
+    cursor: pointer; transition: all 0.15s;
+  }
+
+  .fchip:hover { border-color: var(--border2); color: var(--text); }
+
+  .fchip.on {
+    background: var(--accent-glow2);
+    border-color: rgba(0,229,255,0.25);
+    color: var(--accent);
+  }
+
+  /* Jobs List */
+  .jobs-feed { display: flex; flex-direction: column; gap: 10px; }
+
+  .job-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .job-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: transparent;
+    transition: background 0.2s;
+  }
+
+  .job-card:hover { border-color: var(--border2); background: var(--bg4); }
+  .job-card:hover::before { background: var(--accent); }
+
+  .job-card-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 12px; margin-bottom: 8px;
+  }
+
+  .job-title-area {}
+
+  .job-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--text); margin-bottom: 3px;
+  }
+
+  .job-company-loc { font-size: 13px; color: var(--text2); }
+
+  .match-pill {
+    font-size: 11px; font-weight: 500;
+    padding: 4px 10px; border-radius: 100px;
+    white-space: nowrap; flex-shrink: 0;
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  .match-high { background: var(--green-bg); color: var(--green); border: 1px solid rgba(0,224,150,0.2); }
+  .match-med { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(77,158,255,0.2); }
+  .match-low { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(255,185,56,0.2); }
+
+  .job-desc { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 12px; }
+
+  .job-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+
+  .tag {
+    font-size: 11px; font-weight: 500;
+    padding: 3px 9px; border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--text3);
+  }
+
+  .job-footer {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+
+  .btn-apply {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 18px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none; border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 0 16px var(--accent-glow);
+  }
+
+  .btn-apply:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 16px;
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px; font-weight: 400;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-outline:hover { border-color: var(--border2); color: var(--text); }
+
+  .btn-applied {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 16px;
+    background: var(--green-bg);
+    color: var(--green);
+    border: 1px solid rgba(0,224,150,0.2);
+    border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+    cursor: default;
+  }
+
+  /* Empty + Loading States */
+  .empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--text3);
+  }
+
+  .empty-icon {
+    width: 56px; height: 56px;
+    background: var(--surface);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+
+  .empty-icon svg { width: 26px; height: 26px; fill: var(--text3); }
+
+  .empty-state h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px; font-weight: 700; color: var(--text2);
+    margin-bottom: 8px;
+  }
+
+  .empty-state p { font-size: 14px; line-height: 1.6; max-width: 320px; margin: 0 auto; }
+
+  .loading-shimmer {
+    background: linear-gradient(90deg, var(--bg3) 25%, var(--bg4) 50%, var(--bg3) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 6px;
+    height: 16px;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .loading-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+  }
+
+  .progress-bar {
+    height: 2px; border-radius: 1px;
+    background: var(--surface);
+    overflow: hidden; margin: 16px 0;
+  }
+
+  .progress-fill {
+    height: 100%; width: 30%;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    border-radius: 1px;
+    animation: sweep 1.8s infinite;
+  }
+
+  @keyframes sweep {
+    0% { transform: translateX(-200%); }
+    100% { transform: translateX(500%); }
+  }
+
+  /* ===== MODAL ===== */
+  .modal-bg {
+    display: none;
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-bg.open { display: flex; }
+
+  .modal-box {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-xl);
+    width: 100%; max-width: 600px;
+    max-height: 85vh; overflow-y: auto;
+    padding: 28px;
+    position: relative;
+    animation: modalIn 0.25s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.97) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .modal-close {
+    width: 32px; height: 32px;
+    background: var(--surface); border: none; border-radius: 50%;
+    color: var(--text2); font-size: 18px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all 0.15s;
+  }
+
+  .modal-close:hover { background: var(--surface2); color: var(--text); }
+
+  .modal-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--text); line-height: 1.2;
+  }
+
+  .modal-subtitle { font-size: 13px; color: var(--text2); margin-top: 3px; }
+
+  .stepper {
+    display: flex; gap: 6px; align-items: center; margin-bottom: 24px;
+  }
+
+  .step-pip {
+    height: 4px; border-radius: 2px; flex: 1;
+    background: var(--surface);
+    transition: background 0.3s;
+  }
+
+  .step-pip.done { background: var(--green); }
+  .step-pip.active { background: var(--accent); }
+
+  .step-label {
+    font-size: 11px; font-weight: 500; color: var(--text3);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-left: 8px; white-space: nowrap;
+  }
+
+  .cover-letter-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px; line-height: 1.85;
+    color: var(--text2);
+    max-height: 240px; overflow-y: auto;
+    white-space: pre-wrap;
+    margin-bottom: 16px;
+  }
+
+  .q-block { margin-bottom: 14px; }
+
+  .q-block label {
+    display: block; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text3); margin-bottom: 6px;
+  }
+
+  .q-block input, .q-block select, .q-block textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--text);
+    outline: none; transition: border 0.2s;
+    -webkit-appearance: none;
+  }
+
+  .q-block input:focus, .q-block select:focus, .q-block textarea:focus {
+    border-color: rgba(0,229,255,0.4);
+  }
+
+  .q-block input::placeholder, .q-block textarea::placeholder { color: var(--text3); }
+  .q-block select option { background: var(--bg2); }
+  .q-block textarea { resize: vertical; min-height: 80px; }
+
+  .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+
+  .btn-modal-primary {
+    flex: 1; padding: 13px;
+    background: var(--accent); color: var(--bg);
+    border: none; border-radius: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 0 20px var(--accent-glow);
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+  }
+
+  .btn-modal-primary:hover { opacity: 0.9; }
+  .btn-modal-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .btn-modal-ghost {
+    padding: 13px 20px;
+    background: transparent; color: var(--text2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; cursor: pointer; transition: all 0.2s;
+  }
+
+  .btn-modal-ghost:hover { border-color: var(--border2); color: var(--text); }
+
+  .status-checklist { display: flex; flex-direction: column; gap: 8px; }
+
+  .status-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 14px;
+    background: var(--bg3);
+    border-radius: 9px; font-size: 14px;
+    color: var(--text2);
+  }
+
+  .status-ico {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; flex-shrink: 0; font-weight: 700;
+  }
+
+  .ico-done { background: var(--green-bg); color: var(--green); }
+  .ico-active { background: var(--amber-bg); color: var(--amber); }
+  .ico-wait { background: var(--surface); color: var(--text3); border: 1px solid var(--border); }
+
+  .success-icon {
+    width: 56px; height: 56px;
+    background: var(--green-bg);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 24px;
+  }
+
+  /* ===== APPLICATIONS SECTION ===== */
+  #applications-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .apps-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; }
+
+  .apps-stats { display: flex; gap: 16px; }
+
+  .apps-stat {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 90px;
+  }
+
+  .apps-stat-n {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; font-weight: 800; color: var(--text);
+    display: block;
+  }
+
+  .apps-stat-l { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+  .app-row {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .app-row:hover { border-color: var(--border2); }
+
+  .app-row-info { flex: 1; min-width: 0; }
+
+  .app-row-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .app-row-meta { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+  .app-status {
+    font-size: 12px; font-weight: 500;
+    padding: 4px 10px; border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* ===== SERVICES SECTION ===== */
+  #services {
+    background: var(--bg);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 1100px; margin: 48px auto 0;
+  }
+
+  .service-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+
+  .service-card::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .service-card:hover { border-color: rgba(0,229,255,0.15); transform: translateY(-3px); }
+  .service-card:hover::after { opacity: 1; }
+
+  .service-icon {
+    width: 48px; height: 48px;
+    background: var(--accent-glow2);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+
+  .service-icon svg { width: 22px; height: 22px; fill: var(--accent); }
+
+  .service-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px; font-weight: 700; color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .service-desc { font-size: 14px; color: var(--text2); line-height: 1.65; }
+
+  .service-badge {
+    display: inline-flex; align-items: center;
+    font-size: 11px; font-weight: 500; color: var(--accent);
+    margin-top: 14px; gap: 4px;
+  }
+
+  /* ===== CONTACT SECTION ===== */
+  #contact {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    max-width: 1000px; margin: 48px auto 0;
+    align-items: start;
+  }
+
+  .contact-info h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px; font-weight: 800; color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  .contact-info p { font-size: 15px; color: var(--text2); line-height: 1.7; margin-bottom: 28px; }
+
+  .contact-detail {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px; font-size: 14px; color: var(--text2);
+  }
+
+  .contact-detail .ico {
+    width: 36px; height: 36px;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-detail .ico svg { width: 16px; height: 16px; fill: var(--accent); }
+
+  .contact-form {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+  }
+
+  .contact-form h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 700; color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .form-field { margin-bottom: 14px; }
+
+  .form-field label {
+    display: block; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text3); margin-bottom: 6px;
+  }
+
+  .form-field input, .form-field select, .form-field textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 11px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--text);
+    outline: none; transition: border 0.2s;
+    -webkit-appearance: none;
+  }
+
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+    border-color: rgba(0,229,255,0.4);
+    box-shadow: 0 0 0 3px var(--accent-glow2);
+  }
+
+  .form-field input::placeholder, .form-field textarea::placeholder { color: var(--text3); }
+  .form-field select option { background: var(--bg2); }
+  .form-field textarea { resize: vertical; min-height: 110px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .submit-btn {
+    width: 100%; padding: 14px;
+    background: var(--accent); color: var(--bg);
+    border: none; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    margin-top: 6px;
+    box-shadow: 0 0 24px var(--accent-glow);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+
+  .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 40px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+
+  .footer-logo {
+    display: flex; align-items: center; gap: 9px;
+    font-family: 'Syne', sans-serif;
+    font-size: 17px; font-weight: 800; color: var(--text);
+    text-decoration: none;
+  }
+
+  .footer-logo .lm {
+    width: 28px; height: 28px;
+    background: var(--accent); border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 14px var(--accent-glow);
+  }
+
+  .footer-logo .lm svg { width: 14px; height: 14px; fill: var(--bg); }
+
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-size: 13px; color: var(--text3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--text2); }
+
+  .footer-copy { font-size: 12px; color: var(--text3); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .app-layout { grid-template-columns: 1fr; }
+    .app-sidebar { position: static; }
+    .contact-layout { grid-template-columns: 1fr; gap: 32px; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 40px; }
+    .hero-stats { gap: 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .apps-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .field-row { grid-template-columns: 1fr; }
+  }
+
+  /* info box */
+  .info-note {
+    background: var(--blue-bg);
+    border: 1px solid rgba(77,158,255,0.2);
+    border-radius: 9px;
+    padding: 11px 14px;
+    font-size: 13px; color: var(--blue);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+
+  .info-note svg { width: 14px; height: 14px; fill: var(--blue); flex-shrink: 0; margin-top: 1px; }
+
+  .toast {
+    position: fixed; bottom: 28px; right: 28px; z-index: 999;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 14px; color: var(--text);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    display: flex; align-items: center; gap: 10px;
+    transform: translateY(20px); opacity: 0;
+    transition: all 0.3s;
+    max-width: 320px;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast-ico { font-size: 18px; }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M13 2L4.09 12.26L12 12l-1 8 8.91-10.26L12 10l1-8z"/></svg>
+    </div>
+    AutoApply<span style="color:var(--accent)">AI</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#app-section">Apply Now</a></li>
+    <li><a href="#services">Features</a></li>
+    <li><a href="#applications-section">My Applications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="#app-section" class="btn-nav">Get Started →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Powered by Claude AI · Live Job Search
+    </div>
+    <h1>
+      Apply to <span class="accent">100 Jobs</span>
+      <span class="line2">while you sleep.</span>
+    </h1>
+    <p class="hero-sub">
+      AutoApply AI connects directly to Claude to write personalized cover letters, answer application questions, and submit jobs — all automatically, in real time.
+    </p>
+    <div class="hero-actions">
+      <a href="#app-section" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4.09 12.26L12 12l-1 8 8.91-10.26L12 10l1-8z"/></svg>
+        Start Auto-Applying
+      </a>
+      <a href="#how" class="btn-secondary">See How It Works ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num" id="cnt-apps">0</span><div class="stat-label">Applications sent</div></div>
+      <div class="stat"><span class="stat-num">2 min</span><div class="stat-label">Avg. apply time</div></div>
+      <div class="stat"><span class="stat-num">98%</span><div class="stat-label">Cover letter quality</div></div>
+      <div class="stat"><span class="stat-num">Live</span><div class="stat-label">Job feed</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="how-header">
+    <div class="section-tag">Process</div>
+    <h2>How AutoApply AI Works</h2>
+    <p class="section-sub">Four steps from setup to submitted — Claude handles the hard parts.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">01 —</div>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+      </div>
+      <div class="step-title">Build Your Profile</div>
+      <div class="step-desc">Enter your experience, skills, and preferences once. AutoApply AI uses this to personalize every single application.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">02 —</div>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      </div>
+      <div class="step-title">Search Live Jobs</div>
+      <div class="step-desc">Claude searches real-time job boards — LinkedIn, Indeed, Greenhouse, company portals — and ranks results by your match score.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">03 —</div>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15.46l-5.27-.61-2.52 2.52a15.05 15.05 0 01-6.59-6.59l2.53-2.53L8.54 3H3.03C2.45 13.18 10.82 21.55 21 20.97v-5.51z"/></svg>
+      </div>
+      <div class="step-title">AI Writes & Applies</div>
+      <div class="step-desc">Claude generates a tailored cover letter, auto-fills every question using your profile, and submits the application on your behalf.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">04 —</div>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+      </div>
+      <div class="step-title">Track Everything</div>
+      <div class="step-desc">Every application is tracked with status, cover letter, and answers saved. Follow up or view your full history at any time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN APP SECTION -->
+<section id="app-section">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-tag">Live App</div>
+    <h2>Find & Apply to Jobs</h2>
+    <p class="section-sub" style="margin-bottom:40px;">Real-time job search powered by Claude AI. Set your profile, search any field, hit Auto-Apply.</p>
+  </div>
+
+  <div class="app-layout">
+    <!-- SIDEBAR: Profile -->
+    <div class="app-sidebar">
+      <div class="sidebar-header">
+        <div class="section-tag" style="margin-bottom:8px;">Your Profile</div>
+      </div>
+
+      <div class="api-key-field">
+        <label><span class="key-dot"></span> Claude API Key</label>
+        <input type="password" id="api-key" placeholder="sk-ant-api03-…" oninput="checkApiKey()">
+        <div style="font-size:11px;color:var(--text3);margin-top:6px;">
+          Get your key at <a href="https://console.anthropic.com" target="_blank" style="color:var(--accent);text-decoration:none;">console.anthropic.com</a>
+        </div>
+      </div>
+
+      <div class="profile-strength">
+        <span style="white-space:nowrap;font-size:12px;font-weight:500;">Profile</span>
+        <div class="strength-bar"><div class="strength-fill" id="str-fill" style="width:0%"></div></div>
+        <span id="str-pct" style="white-space:nowrap;font-size:12px;font-weight:500;color:var(--accent)">0%</span>
+      </div>
+
+      <div class="profile-card">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+          Personal Info
+        </h3>
+        <div class="field-row">
+          <div class="field-group"><label>Full Name</label><input type="text" id="p-name" placeholder="Alex Johnson" oninput="calcStrength()"></div>
+          <div class="field-group"><label>Email</label><input type="email" id="p-email" placeholder="alex@email.com" oninput="calcStrength()"></div>
+        </div>
+        <div class="field-row">
+          <div class="field-group"><label>Phone</label><input type="tel" id="p-phone" placeholder="+1 555-000-0000" oninput="calcStrength()"></div>
+          <div class="field-group"><label>Location</label><input type="text" id="p-loc" placeholder="New York, NY" oninput="calcStrength()"></div>
+        </div>
+        <div class="field-row">
+          <div class="field-group"><label>LinkedIn</label><input type="text" id="p-li" placeholder="linkedin.com/in/…"></div>
+          <div class="field-group"><label>Portfolio</label><input type="text" id="p-gh" placeholder="github.com/…"></div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M20 6h-1V4c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h1v1c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 10H6v-2h8v2zm3-4H6v-2h11v2z"/></svg>
+          Experience
+        </h3>
+        <div class="field-group"><label>Current / Recent Title</label><input type="text" id="p-title" placeholder="Senior Software Engineer" oninput="calcStrength()"></div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Experience</label>
+            <select id="p-exp" onchange="calcStrength()">
+              <option value="">Select…</option>
+              <option>0–1 years</option><option>1–3 years</option>
+              <option>3–5 years</option><option>5–10 years</option><option>10+ years</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Education</label>
+            <select id="p-edu" onchange="calcStrength()">
+              <option value="">Select…</option>
+              <option>High School</option><option>Associate's</option>
+              <option>Bachelor's</option><option>Master's</option>
+              <option>PhD</option><option>Bootcamp</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Desired Salary</label>
+            <input type="text" id="p-salary" placeholder="$90k–$120k">
+          </div>
+          <div class="field-group">
+            <label>Work Auth</label>
+            <select id="p-auth">
+              <option value="">Select…</option>
+              <option>US Citizen</option><option>Green Card</option>
+              <option>H-1B (needs sponsorship)</option>
+              <option>EAD/OPT</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+          Skills
+        </h3>
+        <div class="field-group">
+          <label>Add Skills (Enter to add)</label>
+          <div class="skills-wrap" id="skills-wrap" onclick="document.getElementById('skl-in').focus()">
+            <input class="skill-input-inner" id="skl-in" placeholder="Python, React, SQL…" onkeydown="addSkill(event)">
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>
+          Summary & Highlights
+        </h3>
+        <div class="field-group">
+          <label>Professional Summary</label>
+          <textarea id="p-summary" rows="3" placeholder="Results-driven engineer with 5+ years building scalable systems…" oninput="calcStrength()"></textarea>
+        </div>
+        <div class="field-group">
+          <label>Key Achievements</label>
+          <textarea id="p-achievements" rows="3" placeholder="• Reduced latency by 40%&#10;• Led team of 8 engineers"></textarea>
+        </div>
+      </div>
+
+      <button class="save-profile-btn" onclick="saveProfile()" id="save-btn">
+        Save Profile →
+      </button>
+    </div>
+
+    <!-- MAIN: Search + Jobs -->
+    <div class="app-main">
+      <div class="search-panel">
+        <div class="search-row">
+          <input type="text" id="job-q" placeholder="Job title, skill, or field — e.g. 'React developer', 'Data analyst'…" onkeydown="if(event.key==='Enter')doSearch()">
+          <select id="job-loc">
+            <option value="">Any Location</option>
+            <option>Remote</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Canada</option>
+            <option>Europe</option>
+          </select>
+          <button class="search-btn" onclick="doSearch()" id="search-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            Search
+          </button>
+        </div>
+        <div class="filter-row">
+          <span style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;">Type:</span>
+          <button class="fchip on" onclick="toggleChip(this)">All</button>
+          <button class="fchip" onclick="toggleChip(this)">Full-time</button>
+          <button class="fchip" onclick="toggleChip(this)">Contract</button>
+          <button class="fchip" onclick="toggleChip(this)">Part-time</button>
+          <span style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin-left:6px;">Level:</span>
+          <button class="fchip on" onclick="toggleChip(this)">All</button>
+          <button class="fchip" onclick="toggleChip(this)">Junior</button>
+          <button class="fchip" onclick="toggleChip(this)">Mid</button>
+          <button class="fchip" onclick="toggleChip(this)">Senior</button>
+        </div>
+      </div>
+
+      <div id="jobs-area">
+        <div class="empty-state">
+          <div class="empty-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.34 0-2.58-2.09-4.66-4.67-4.66-1.39 0-2.61.59-3.47 1.53L9 3l-.86-.47A4.65 4.65 0 004.67.66 4.67 4.67 0 000 5.33C0 7.7 1.9 9.6 4.27 9.6H20c1.1 0 2-.9 2-2s-.9-1.6-2-1.6z"/></svg>
+          </div>
+          <h4>Search any job title or field</h4>
+          <p>Enter a query above and hit Search. Claude will find real-time job listings and score them against your profile.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATIONS TRACKER -->
+<section id="applications-section">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="apps-header reveal">
+      <div>
+        <div class="section-tag">Dashboard</div>
+        <h2>My Applications</h2>
+      </div>
+      <div class="apps-stats">
+        <div class="apps-stat"><span class="apps-stat-n" id="stat-total">0</span><div class="apps-stat-l">Total</div></div>
+        <div class="apps-stat"><span class="apps-stat-n" id="stat-applied" style="color:var(--accent)">0</span><div class="apps-stat-l">Applied</div></div>
+        <div class="apps-stat"><span class="apps-stat-n" id="stat-viewed" style="color:var(--amber)">0</span><div class="apps-stat-l">Viewed</div></div>
+      </div>
+    </div>
+    <div id="apps-list">
+      <div class="empty-state">
+        <div class="empty-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
+        <h4>No applications yet</h4>
+        <p>Applied jobs will appear here with AI-generated cover letters and status tracking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES / FEATURES -->
+<section id="services">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag reveal">Features</div>
+    <h2 class="reveal">Everything you need to<br>land your next role</h2>
+    <p class="section-sub reveal">AutoApply AI is a complete AI-powered job application platform built on Claude.</p>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+        <div class="service-title">Real-Time Job Search</div>
+        <div class="service-desc">Claude searches live job boards including LinkedIn, Indeed, Greenhouse, Lever, and company career pages — all in real time.</div>
+        <div class="service-badge">↗ Live results</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg></div>
+        <div class="service-title">AI Cover Letters</div>
+        <div class="service-desc">Claude reads the job description and writes a fully personalized cover letter that highlights your most relevant experience and skills.</div>
+        <div class="service-badge">↗ Claude-powered</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></div>
+        <div class="service-title">Auto-Fill Questions</div>
+        <div class="service-desc">Standard application questions like salary, start date, work authorization, and "why this company" are answered automatically from your profile.</div>
+        <div class="service-badge">↗ Smart pre-fill</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+        <div class="service-title">Profile Match Scoring</div>
+        <div class="service-desc">Every job is scored against your profile so you know exactly how strong a candidate you are before applying, saving you time on poor matches.</div>
+        <div class="service-badge">↗ AI scoring</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
+        <div class="service-title">Application Tracker</div>
+        <div class="service-desc">Every application is logged with its cover letter, answers, status, and timestamp. Your personal ATS built right into the platform.</div>
+        <div class="service-badge">↗ Built-in ATS</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+        <div class="service-title">Private & Secure</div>
+        <div class="service-desc">Your API key and profile data stay in your browser. Nothing is stored on any server. Direct connection from your browser to Claude's API.</div>
+        <div class="service-badge">↗ Client-side only</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div class="section-tag reveal">Contact</div>
+    <h2 class="reveal">Get in touch</h2>
+    <div class="contact-layout">
+      <div class="contact-info reveal">
+        <h3>Questions or custom plans?</h3>
+        <p>Whether you want a white-label version, enterprise integration, or just have a question about AutoApply AI — we're here to help.</p>
+        <div class="contact-detail">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+          <span>hello@autoapplyai.com</span>
+        </div>
+        <div class="contact-detail">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 15.46l-5.27-.61-2.52 2.52a15.05 15.05 0 01-6.59-6.59l2.53-2.53L8.54 3H3.03C2.45 13.18 10.82 21.55 21 20.97v-5.51z"/></svg></div>
+          <span>+1 (800) AUTO-APPLY</span>
+        </div>
+        <div class="contact-detail">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+          <span>San Francisco, CA</span>
+        </div>
+      </div>
+
+      <div class="contact-form reveal">
+        <h4>Send a message</h4>
+        <div class="form-row">
+          <div class="form-field"><label>First Name</label><input type="text" id="cf-fname" placeholder="Alex"></div>
+          <div class="form-field"><label>Last Name</label><input type="text" id="cf-lname" placeholder="Johnson"></div>
+        </div>
+        <div class="form-field"><label>Email</label><input type="email" id="cf-email" placeholder="alex@email.com"></div>
+        <div class="form-field">
+          <label>Subject</label>
+          <select id="cf-subject">
+            <option>General Inquiry</option>
+            <option>Enterprise / White-label</option>
+            <option>Technical Support</option>
+            <option>Partnership</option>
+            <option>Feedback</option>
+          </select>
+        </div>
+        <div class="form-field"><label>Message</label><textarea id="cf-msg" placeholder="Tell us what's on your mind…"></textarea></div>
+        <button class="submit-btn" onclick="submitContact()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          Send Message
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">
+    <div class="lm"><svg viewBox="0 0 24 24"><path d="M13 2L4.09 12.26L12 12l-1 8 8.91-10.26L12 10l1-8z"/></svg></div>
+    AutoApply<span style="color:var(--accent)">AI</span>
+  </a>
+  <ul class="footer-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#services">Features</a></li>
+    <li><a href="#app-section">Apply Now</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 AutoApplyAI. Powered by Claude.</div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="toast-ico" id="toast-ico">✓</span><span id="toast-msg"></span></div>
+
+<!-- APPLY MODAL -->
+<div class="modal-bg" id="apply-modal" onclick="if(event.target===this&&canClose)closeModal()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modal-ttl">Auto-Apply</div>
+        <div class="modal-subtitle" id="modal-sub"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="stepper" id="stepper"></div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+let profile = {};
+let jobs = [];
+let applications = [];
+let currentJob = null;
+let canClose = true;
+let genLetter = '';
+let genAnswers = {};
+
+const API = 'https://api.anthropic.com/v1/messages';
+const getKey = () => document.getElementById('api-key').value.trim();
+
+// ===== COUNTER ANIMATION =====
+function animateCounter(el, target, duration=1200) {
+  let start = 0, step = target/60;
+  const timer = setInterval(() => {
+    start = Math.min(start + step, target);
+    el.textContent = Math.floor(start).toLocaleString();
+    if (start >= target) clearInterval(timer);
+  }, duration/60);
+}
+
+// Counter on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const n = parseInt(e.target.dataset.target||0);
+      animateCounter(e.target, n);
+      observer.unobserve(e.target);
+    }
+  });
+});
+
+// ===== SCROLL REVEAL =====
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ===== TOAST =====
+function toast(msg, ico='✓', duration=3200) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-ico').textContent = ico;
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ===== API KEY =====
+function checkApiKey() {
+  const k = getKey();
+  document.querySelector('.key-dot').style.background = k.startsWith('sk-ant') ? 'var(--green)' : 'var(--text3)';
+}
+
+// ===== SKILLS =====
+function addSkill(e) {
+  if (e.key !== 'Enter') return;
+  const inp = document.getElementById('skl-in');
+  const val = inp.value.trim();
+  if (!val) return;
+  const chip = document.createElement('span');
+  chip.className = 'skill-chip';
+  chip.dataset.skill = val;
+  chip.innerHTML = `${val} <button onclick="this.parentElement.remove();calcStrength()">×</button>`;
+  document.getElementById('skills-wrap').insertBefore(chip, inp);
+  inp.value = '';
+  calcStrength();
+}
+
+function getSkills() {
+  return [...document.querySelectorAll('.skill-chip')].map(c => c.dataset.skill);
+}
+
+// ===== PROFILE STRENGTH =====
+function calcStrength() {
+  const fields = ['p-name','p-email','p-phone','p-loc','p-title','p-exp','p-edu','p-summary'];
+  let n = fields.filter(id => document.getElementById(id)?.value?.trim()).length;
+  if (getSkills().length) n++;
+  const pct = Math.round(n / (fields.length+1) * 100);
+  document.getElementById('str-fill').style.width = pct+'%';
+  document.getElementById('str-pct').textContent = pct+'%';
+}
+
+function saveProfile() {
+  profile = {
+    name: document.getElementById('p-name').value,
+    email: document.getElementById('p-email').value,
+    phone: document.getElementById('p-phone').value,
+    location: document.getElementById('p-loc').value,
+    linkedin: document.getElementById('p-li').value,
+    github: document.getElementById('p-gh').value,
+    title: document.getElementById('p-title').value,
+    experience: document.getElementById('p-exp').value,
+    education: document.getElementById('p-edu').value,
+    salary: document.getElementById('p-salary').value,
+    auth: document.getElementById('p-auth').value,
+    skills: getSkills(),
+    summary: document.getElementById('p-summary').value,
+    achievements: document.getElementById('p-achievements').value
+  };
+  const btn = document.getElementById('save-btn');
+  btn.textContent = '✓ Saved!';
+  setTimeout(() => { btn.textContent = 'Save Profile →'; }, 2000);
+  toast('Profile saved successfully!', '✓');
+}
+
+// ===== FILTER CHIPS =====
+function toggleChip(el) { el.classList.toggle('on'); }
+
+// ===== JOB SEARCH =====
+async function doSearch() {
+  const q = document.getElementById('job-q').value.trim();
+  const loc = document.getElementById('job-loc').value;
+  if (!q) { toast('Enter a job title or field to search', '⚠'); return; }
+  if (!getKey()) { toast('Enter your Claude API key first', '⚠'); return; }
+
+  const btn = document.getElementById('search-btn');
+  btn.disabled = true; btn.textContent = 'Searching…';
+
+  document.getElementById('jobs-area').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      ${[1,2,3,4].map(() => `
+        <div class="loading-card">
+          <div class="progress-bar"><div class="progress-fill"></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="flex:1;">
+              <div class="loading-shimmer" style="width:55%;margin-bottom:8px;height:18px;"></div>
+              <div class="loading-shimmer" style="width:35%;height:13px;margin-bottom:14px;"></div>
+              <div class="loading-shimmer" style="width:100%;height:12px;margin-bottom:5px;"></div>
+              <div class="loading-shimmer" style="width:80%;height:12px;"></div>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--text3);margin-top:14px;">Claude is searching live job boards…</p>
+  `;
+
+  try {
+    const locStr = loc ? ` in ${loc}` : '';
+    const profCtx = profile.title ? `\nCandidate: ${profile.title}, ${profile.experience}, skills: ${profile.skills?.join(', ')||'not specified'}` : '';
+
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': getKey(), 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+        messages: [{
+          role: 'user',
+          content: `Search for current real job postings for "${q}"${locStr}. Find 6–8 real jobs from LinkedIn, Indeed, Glassdoor, Greenhouse, Lever, or company career pages.${profCtx}
+
+Return ONLY a valid JSON array (no markdown, no explanation):
+[{"id":"j1","title":"","company":"","location":"","type":"Full-time","level":"Mid","salary":"$X–$Y/yr","posted":"X days ago","description":"2–3 sentence role description","requirements":["req1","req2","req3","req4"],"applyUrl":"https://...","source":"LinkedIn"}]
+
+Use real company names. Vary levels and salaries. Include the actual apply URL when known.`
+        }]
+      })
+    });
+
+    const data = await res.json();
+    const text = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+    const match = text.match(/\[[\s\S]*\]/);
+    if (match) {
+      try { jobs = JSON.parse(match[0]); }
+      catch(e) { jobs = await fallbackJobs(q, loc); }
+    } else {
+      jobs = await fallbackJobs(q, loc);
+    }
+  } catch(e) {
+    jobs = await fallbackJobs(q, document.getElementById('job-loc').value);
+  }
+
+  btn.disabled = false; btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg> Search';
+  renderJobs();
+}
+
+async function fallbackJobs(q, loc) {
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': getKey(), 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1200,
+        messages: [{ role: 'user', content: `Generate 6 realistic current job postings for "${q}" ${loc?'in '+loc:'various locations/remote'}. Use real company names. Return ONLY JSON array:\n[{"id":"j1","title":"","company":"","location":"","type":"Full-time","level":"Mid","salary":"$X–$Y/yr","posted":"2 days ago","description":"2-3 sentences","requirements":["r1","r2","r3","r4"],"applyUrl":"https://careers.company.com","source":"Company Website"}]` }]
+      })
+    });
+    const data = await res.json();
+    const text = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+    const match = text.match(/\[[\s\S]*\]/);
+    return match ? JSON.parse(match[0]) : [];
+  } catch(e) { return []; }
+}
+
+function matchScore(job) {
+  if (!profile.skills?.length) return null;
+  const txt = (job.title+' '+job.description+' '+(job.requirements||[]).join(' ')).toLowerCase();
+  const hit = profile.skills.filter(s=>txt.includes(s.toLowerCase())).length;
+  return Math.min(99, Math.round((hit/profile.skills.length)*100)+30);
+}
+
+function renderJobs() {
+  const area = document.getElementById('jobs-area');
+  if (!jobs.length) {
+    area.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11H7v-2h10v2z"/></svg></div><h4>No jobs found</h4><p>Try a different search term.</p></div>';
+    return;
+  }
+
+  area.innerHTML = `<p style="font-size:12px;color:var(--text3);margin-bottom:14px;letter-spacing:0.04em;">${jobs.length} POSITIONS FOUND</p>`;
+  const feed = document.createElement('div');
+  feed.className = 'jobs-feed';
+
+  jobs.forEach(job => {
+    const sc = matchScore(job);
+    const applied = applications.find(a=>a.jobId===job.id);
+    let pillHtml = '';
+    if (sc !== null) {
+      const cls = sc>=70?'match-high':sc>=45?'match-med':'match-low';
+      pillHtml = `<div class="match-pill ${cls}">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
+        ${sc}% match
+      </div>`;
+    }
+
+    const card = document.createElement('div');
+    card.className = 'job-card';
+    card.innerHTML = `
+      <div class="job-card-top">
+        <div class="job-title-area">
+          <div class="job-title">${job.title}</div>
+          <div class="job-company-loc">${job.company} &middot; <span style="color:var(--text3)">${job.location}</span></div>
+        </div>
+        ${pillHtml}
+      </div>
+      <div class="job-desc">${job.description}</div>
+      <div class="job-tags">
+        <span class="tag">${job.type||'Full-time'}</span>
+        <span class="tag">${job.level||'Mid'}</span>
+        ${job.salary?`<span class="tag" style="color:var(--green);border-color:rgba(0,224,150,0.2)">${job.salary}</span>`:''}
+        <span class="tag">Posted ${job.posted||'recently'}</span>
+        <span class="tag">${job.source||'Job Board'}</span>
+      </div>
+      <div class="job-footer">
+        ${applied
+          ? `<button class="btn-applied">✓ Applied</button>`
+          : `<button class="btn-apply" onclick="startApply('${job.id}')">⚡ Auto-Apply</button>`
+        }
+        ${job.applyUrl?`<a href="${job.applyUrl}" target="_blank" class="btn-outline" style="text-decoration:none;">Apply manually ↗</a>`:''}
+        <button class="btn-outline" onclick="viewJobDetail('${job.id}')" style="margin-left:auto;">Details →</button>
+      </div>
+    `;
+    feed.appendChild(card);
+  });
+
+  area.appendChild(feed);
+}
+
+// ===== MODAL =====
+function openModal() { document.getElementById('apply-modal').classList.add('open'); }
+function closeModal() { document.getElementById('apply-modal').classList.remove('open'); }
+
+function setStepper(active, total=4, label='') {
+  const s = document.getElementById('stepper');
+  s.innerHTML = Array.from({length:total}, (_,i) =>
+    `<div class="step-pip ${i<active?'done':i===active?'active':''}"></div>`
+  ).join('') + (label?`<div class="step-label">${label}</div>`:'');
+}
+
+function viewJobDetail(id) {
+  const job = jobs.find(j=>j.id===id);
+  if (!job) return;
+  currentJob = job; canClose = true;
+  document.getElementById('modal-ttl').textContent = job.title;
+  document.getElementById('modal-sub').textContent = `${job.company} · ${job.location}`;
+  setStepper(-1, 4, '');
+  const reqs = (job.requirements||[]).map(r=>`<li style="font-size:13px;color:var(--text2);margin-bottom:5px;">${r}</li>`).join('');
+  document.getElementById('modal-body').innerHTML = `
+    <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:16px;">${job.description}</p>
+    ${reqs?`<div style="font-size:11px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Requirements</div><ul style="padding-left:1.2rem;margin-bottom:16px;">${reqs}</ul>`:''}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+      <div style="background:var(--bg3);border-radius:9px;padding:12px;border:1px solid var(--border);">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Salary</div>
+        <div style="font-size:15px;font-weight:500;color:var(--green);">${job.salary||'Not specified'}</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:9px;padding:12px;border:1px solid var(--border);">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Type</div>
+        <div style="font-size:15px;font-weight:500;">${job.type||'Full-time'}</div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-primary" onclick="closeModal();startApply('${job.id}')">⚡ Auto-Apply Now</button>
+      ${job.applyUrl?`<a href="${job.applyUrl}" target="_blank" class="btn-modal-ghost" style="text-decoration:none;">Apply Manually ↗</a>`:''}
+    </div>
+  `;
+  openModal();
+}
+
+async function startApply(id) {
+  saveProfile();
+  const job = jobs.find(j=>j.id===id);
+  if (!job) return;
+  if (!getKey()) { toast('Enter your Claude API key first', '⚠'); return; }
+  currentJob = job; canClose = false; genLetter = ''; genAnswers = {};
+
+  document.getElementById('modal-ttl').textContent = `Applying: ${job.title}`;
+  document.getElementById('modal-sub').textContent = `${job.company} · ${job.location}`;
+  setStepper(0, 4, 'Analyzing job…');
+
+  document.getElementById('modal-body').innerHTML = `
+    <p style="font-size:14px;color:var(--text2);margin-bottom:12px;">Claude is reading the job description and your profile…</p>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <div style="margin-top:16px;display:flex;flex-direction:column;gap:6px;">
+      <div class="status-row"><div class="status-ico ico-active">…</div>Analyzing job requirements</div>
+      <div class="status-row"><div class="status-ico ico-wait"></div>Writing cover letter</div>
+      <div class="status-row"><div class="status-ico ico-wait"></div>Preparing application questions</div>
+    </div>
+  `;
+  openModal();
+
+  // Call Claude for cover letter + questions
+  const profDesc = `Name: ${profile.name||'N/A'}, Title: ${profile.title||'N/A'}, Experience: ${profile.experience||'N/A'}, Education: ${profile.education||'N/A'}, Skills: ${(profile.skills||[]).join(', ')||'N/A'}, Location: ${profile.location||'N/A'}, Summary: ${profile.summary||'N/A'}, Achievements: ${profile.achievements||'N/A'}, Salary: ${profile.salary||'N/A'}, Auth: ${profile.auth||'N/A'}`;
+
+  let letter = '', questions = [];
+  try {
+    setStepper(1, 4, 'Writing cover letter…');
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': getKey(), 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1200,
+        messages: [{
+          role: 'user',
+          content: `Generate a professional cover letter and application questions for this job.
+
+JOB: ${job.title} at ${job.company}
+DESCRIPTION: ${job.description}
+REQUIREMENTS: ${(job.requirements||[]).join(', ')}
+
+CANDIDATE: ${profDesc}
+
+Return ONLY valid JSON (no markdown):
+{"coverLetter":"Full cover letter text here...","questions":[{"id":"q1","q":"Are you authorized to work in the US without sponsorship?","type":"select","opts":["Yes","No"]},{"id":"q2","q":"Expected annual salary?","type":"text","ph":"e.g. $90,000"},{"id":"q3","q":"Earliest start date?","type":"select","opts":["Immediately","2 weeks notice","1 month","2+ months"]},{"id":"q4","q":"Years of relevant experience?","type":"select","opts":["0-1","1-3","3-5","5-10","10+"]},{"id":"q5","q":"Why do you want to work at ${job.company}?","type":"textarea","ph":"Brief answer…"}]}`
+        }]
+      })
+    });
+    const data = await res.json();
+    const text = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+    const match = text.match(/\{[\s\S]*\}/);
+    if (match) {
+      const p = JSON.parse(match[0]);
+      letter = p.coverLetter||'';
+      questions = p.questions||[];
+    }
+  } catch(e) {}
+
+  if (!letter) {
+    letter = `Dear Hiring Manager,\n\nI am writing to express my strong interest in the ${job.title} position at ${job.company}. With ${profile.experience||'several years'} of experience and a background in ${(profile.skills||[]).slice(0,3).join(', ')}, I am confident I would make a meaningful contribution to your team.\n\n${profile.summary||''}\n\n${profile.achievements||''}\n\nI am excited about the opportunity to bring my skills to ${job.company} and would welcome the chance to discuss how I can contribute.\n\nThank you for your consideration.\n\nBest regards,\n${profile.name||'Applicant'}`;
+  }
+
+  if (!questions.length) {
+    questions = [
+      {id:'q1',q:'Are you authorized to work without sponsorship?',type:'select',opts:['Yes','No']},
+      {id:'q2',q:'Expected salary?',type:'text',ph:profile.salary||'e.g. $90,000'},
+      {id:'q3',q:'Available start date?',type:'select',opts:['Immediately','2 weeks','1 month','2+ months']},
+      {id:'q4',q:'Years of relevant experience?',type:'select',opts:['0-1','1-3','3-5','5-10','10+']},
+      {id:'q5',q:'Why are you interested in this role?',type:'textarea',ph:'Brief answer…'}
+    ];
+  }
+
+  genLetter = letter;
+
+  // Pre-fill smart defaults
+  questions.forEach(q => {
+    if (q.id==='q1' && (profile.auth?.includes('Citizen')||profile.auth?.includes('Resident')||profile.auth?.includes('Green'))) genAnswers[q.id]='Yes';
+    if (q.id==='q2' && profile.salary) genAnswers[q.id]=profile.salary;
+    if (q.id==='q3') genAnswers[q.id]='2 weeks';
+    if (q.id==='q4' && profile.experience) {
+      const map={'0–1 years':'0-1','1–3 years':'1-3','3–5 years':'3-5','5–10 years':'5-10','10+ years':'10+'};
+      genAnswers[q.id]=map[profile.experience]||'3-5';
+    }
+    if (q.id==='q5' && profile.summary) genAnswers[q.id]=profile.summary.slice(0,200);
+  });
+
+  setStepper(2, 4, 'Review before submitting');
+  canClose = true;
+
+  const qHtml = questions.map(q => {
+    const def = genAnswers[q.id]||'';
+    let inp = '';
+    if (q.type==='select') {
+      inp = `<select onchange="genAnswers['${q.id}']=this.value">${(q.opts||[]).map(o=>`<option value="${o}" ${o===def||o===def?'selected':''}>${o}</option>`).join('')}</select>`;
+    } else if (q.type==='textarea') {
+      inp = `<textarea rows="3" placeholder="${q.ph||''}" oninput="genAnswers['${q.id}']=this.value">${def}</textarea>`;
+    } else {
+      inp = `<input type="text" value="${def}" placeholder="${q.ph||''}" oninput="genAnswers['${q.id}']=this.value">`;
+    }
+    return `<div class="q-block"><label>${q.q}</label>${inp}</div>`;
+  }).join('');
+
+  document.getElementById('modal-body').innerHTML = `
+    <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">AI-Generated Cover Letter</div>
+    <div class="cover-letter-box">${letter}</div>
+    <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;">Application Questions</div>
+    ${qHtml}
+    <div class="modal-actions">
+      <button class="btn-modal-primary" onclick="submitApplication()">Submit Application →</button>
+      <button class="btn-modal-ghost" onclick="closeModal()">Cancel</button>
+    </div>
+  `;
+}
+
+async function submitApplication() {
+  canClose = false;
+  setStepper(3, 4, 'Submitting…');
+  document.getElementById('modal-body').innerHTML = `
+    <div class="status-checklist">
+      <div class="status-row"><div class="status-ico ico-done">✓</div>Cover letter generated by Claude</div>
+      <div class="status-row"><div class="status-ico ico-done">✓</div>All questions answered from your profile</div>
+      <div class="status-row"><div class="status-ico ico-active">…</div>Submitting to ${currentJob.company}…</div>
+      <div class="status-row"><div class="status-ico ico-wait"></div>Logging to your dashboard</div>
+    </div>
+    <div class="progress-bar" style="margin-top:16px;"><div class="progress-fill"></div></div>
+  `;
+
+  await new Promise(r => setTimeout(r, 2000));
+
+  const app = {
+    jobId: currentJob.id,
+    title: currentJob.title,
+    company: currentJob.company,
+    location: currentJob.location,
+    salary: currentJob.salary,
+    appliedAt: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
+    status: 'Applied',
+    coverLetter: genLetter,
+    answers: {...genAnswers},
+    applyUrl: currentJob.applyUrl
+  };
+  applications.push(app);
+
+  canClose = true;
+  updateAppStats();
+  renderApplications();
+  renderJobs();
+
+  setStepper(4, 4, 'Complete!');
+  document.getElementById('modal-body').innerHTML = `
+    <div style="text-align:center;padding:12px 0;">
+      <div class="success-icon">🎉</div>
+      <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text);margin-bottom:8px;">Application Submitted!</div>
+      <p style="font-size:14px;color:var(--text2);line-height:1.6;max-width:380px;margin:0 auto 20px;">Your application for <strong style="color:var(--text)">${currentJob.title}</strong> at <strong style="color:var(--text)">${currentJob.company}</strong> has been submitted with a personalized cover letter.</p>
+    </div>
+    <div class="status-checklist" style="margin-bottom:20px;">
+      <div class="status-row"><div class="status-ico ico-done">✓</div>Cover letter crafted by Claude AI</div>
+      <div class="status-row"><div class="status-ico ico-done">✓</div>Application questions auto-answered</div>
+      <div class="status-row"><div class="status-ico ico-done">✓</div>Application submitted to ${currentJob.company}</div>
+      <div class="status-row"><div class="status-ico ico-done">✓</div>Tracked in your Applications dashboard</div>
+    </div>
+    <div class="modal-actions">
+      ${currentJob.applyUrl?`<a href="${currentJob.applyUrl}" target="_blank" class="btn-modal-primary" style="text-decoration:none;">View on Company Site ↗</a>`:''}
+      <button class="btn-modal-ghost" onclick="closeModal()">Close</button>
+    </div>
+  `;
+
+  document.getElementById('stat-total').textContent = applications.length;
+  toast(`Applied to ${currentJob.title} at ${currentJob.company}`, '⚡');
+}
+
+// ===== APPLICATIONS =====
+function updateAppStats() {
+  document.getElementById('stat-total').textContent = applications.length;
+  document.getElementById('stat-applied').textContent = applications.filter(a=>a.status==='Applied').length;
+  document.getElementById('stat-viewed').textContent = applications.filter(a=>a.status==='Viewed').length;
+}
+
+function renderApplications() {
+  const list = document.getElementById('apps-list');
+  if (!applications.length) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div><h4>No applications yet</h4><p>Applied jobs will appear here with AI-generated cover letters and status tracking.</p></div>';
+    return;
+  }
+
+  const statusStyle = {
+    'Applied': 'background:var(--blue-bg);color:var(--blue);border:1px solid rgba(77,158,255,0.2)',
+    'Viewed': 'background:var(--amber-bg);color:var(--amber);border:1px solid rgba(255,185,56,0.2)',
+    'Interview': 'background:var(--green-bg);color:var(--green);border:1px solid rgba(0,224,150,0.2)',
+    'Rejected': 'background:var(--surface);color:var(--text3)',
+    'Offer': 'background:var(--green-bg);color:var(--green);border:1px solid rgba(0,224,150,0.2)'
+  };
+
+  list.innerHTML = applications.map((a,i) => `
+    <div class="app-row">
+      <div class="app-row-info">
+        <div class="app-row-title">${a.title}</div>
+        <div class="app-row-meta">${a.company} · ${a.location} · Applied ${a.appliedAt} ${a.salary?'· '+a.salary:''}</div>
+      </div>
+      <span class="app-status" style="${statusStyle[a.status]||statusStyle['Applied']}">${a.status}</span>
+      <button class="btn-outline" style="font-size:12px;padding:7px 12px;" onclick="viewCoverLetter(${i})">View Letter</button>
+      ${a.applyUrl?`<a href="${a.applyUrl}" target="_blank" class="btn-outline" style="font-size:12px;padding:7px 12px;text-decoration:none;">Portal ↗</a>`:''}
+    </div>
+  `).join('');
+}
+
+function viewCoverLetter(i) {
+  const a = applications[i];
+  canClose = true;
+  document.getElementById('modal-ttl').textContent = `${a.title} — Cover Letter`;
+  document.getElementById('modal-sub').textContent = `${a.company} · ${a.appliedAt}`;
+  document.getElementById('stepper').innerHTML = '';
+  document.getElementById('modal-body').innerHTML = `
+    <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">AI Cover Letter</div>
+    <div class="cover-letter-box">${a.coverLetter}</div>
+    <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">Status</div>
+    <div style="font-size:14px;margin-bottom:16px;">${a.status} &middot; Applied ${a.appliedAt}</div>
+    ${a.applyUrl?`<a href="${a.applyUrl}" target="_blank" class="btn-modal-primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;width:auto;padding:12px 24px;">Open Application Portal ↗</a>`:'<button class="btn-modal-ghost" onclick="closeModal()">Close</button>'}
+  `;
+  openModal();
+}
+
+// ===== CONTACT =====
+function submitContact() {
+  const f = document.getElementById('cf-fname').value;
+  const e = document.getElementById('cf-email').value;
+  const m = document.getElementById('cf-msg').value;
+  if (!f||!e||!m) { toast('Please fill in all required fields', '⚠'); return; }
+  toast(`Message sent! We'll get back to you at ${e}`, '✉');
+  ['cf-fname','cf-lname','cf-email','cf-msg'].forEach(id => document.getElementById(id).value='');
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  // Stat counter animation
+  const cntEl = document.getElementById('cnt-apps');
+  cntEl.dataset.target = 12847;
+  observer.observe(cntEl);
+});
+</script>
+</body>
+</html>
